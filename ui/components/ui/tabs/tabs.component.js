@@ -40,15 +40,15 @@ const Tabs = ({
     Math.max(_findChildByKey(defaultActiveTabKey), 0),
   );
 
-  const invokeDetectNfts = useThrottle(() => dispatch(detectNfts()), 60000);
+  const invokeDetectNfts = useThrottle(() => dispatch(detectNfts()), 5000);
 
   const handleTabClick = (tabIndex, tabKey) => {
     if (tabIndex !== activeTabIndex) {
       setActiveTabIndex(tabIndex);
       onTabClick?.(tabKey);
     }
-    if (tabKey === 'nfts') {
-      invokeDetectNfts();
+    if (tabKey === 'modal-nfts') {
+      // invokeDetectNfts();
     }
   };
 

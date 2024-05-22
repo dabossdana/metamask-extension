@@ -23,6 +23,7 @@ import {
   ///: END:ONLY_INCLUDE_IF
   getIsMainnet,
   getUseNftDetection,
+  getNftIsLoading,
 } from '../../../selectors';
 import {
   checkAndUpdateAllNftsOwnershipStatus,
@@ -48,6 +49,7 @@ import {
   RampsCard,
 } from '../../multichain/ramps-card/ramps-card';
 import { useAccountTotalFiatBalance } from '../../../hooks/useAccountTotalFiatBalance';
+import LoadingScreen from '../../ui/loading-screen';
 ///: END:ONLY_INCLUDE_IF
 
 export default function NftsTab() {
@@ -75,9 +77,16 @@ export default function NftsTab() {
   const { nftsLoading, collections, previouslyOwnedCollection } =
     useNftsCollections();
 
+  const isNftLoading = useSelector(getNftIsLoading);
+
   const onEnableAutoDetect = () => {
     history.push(SECURITY_ROUTE);
   };
+
+  useEffect(() => {
+    console.log('============');
+    dispatch(detectNfts());
+  }, []);
 
   const onRefresh = () => {
     if (isMainnet) {
@@ -114,8 +123,13 @@ export default function NftsTab() {
     currentLocale,
   ]);
 
-  if (nftsLoading) {
+  /*   if (nftsLoading) {
+    console.log('============== nftsLoading', nftsLoading);
     return <div className="nfts-tab__loading">{t('loadingNFTs')}</div>;
+  } */
+
+  if (isNftLoading) {
+    return <LoadingScreen />;
   }
 
   return (

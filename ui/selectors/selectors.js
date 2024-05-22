@@ -742,6 +742,10 @@ export function getAppIsLoading(state) {
   return state.appState.isLoading;
 }
 
+export function getNftIsLoading(state) {
+  return state.appState.isNftLoading;
+}
+
 export function getCurrentCurrency(state) {
   return state.metamask.currentCurrency;
 }
