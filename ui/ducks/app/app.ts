@@ -48,7 +48,6 @@ type AppState = {
     privateKey?: string;
   };
   isLoading: boolean;
-  isNftLoading: boolean;
   loadingMessage: string | null;
   scrollToBottom: boolean;
   warning: string | null | undefined;
@@ -133,7 +132,6 @@ const initialState: AppState = {
   },
   // Used to display loading indicator
   isLoading: false,
-  isNftLoading: false,
   loadingMessage: null,
   // Used to display error text
   warning: null,
@@ -432,19 +430,6 @@ export default function reduceApp(
       return {
         ...appState,
         isLoading: false,
-      };
-
-    case actionConstants.SHOW_NFT_LOADING:
-      return {
-        ...appState,
-        isNftLoading: true,
-        loadingMessage: action.payload,
-      };
-
-    case actionConstants.HIDE_NFT_LOADING:
-      return {
-        ...appState,
-        isNftLoading: false,
       };
 
     case actionConstants.DISPLAY_WARNING:

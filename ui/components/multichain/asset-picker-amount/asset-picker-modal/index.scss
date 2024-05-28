@@ -77,23 +77,5 @@
       border-bottom: 0;
       padding: 16px;
     }
-
-    &__loading {
-      display: flex;
-      height: 250px;
-      align-items: center;
-      justify-content: center;
-      padding: 30px;
-    }
-  }
-}
-
-.toto {
-  &__loading {
-    display: flex;
-    height: 250px;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
   }
 }

@@ -2792,15 +2792,6 @@ export function showLoadingIndication(
   };
 }
 
-export function showNftLoadingIndication(
-  message?: string | ReactFragment,
-): PayloadAction<string | ReactFragment | undefined> {
-  return {
-    type: actionConstants.SHOW_NFT_LOADING,
-    payload: message,
-  };
-}
-
 export function setHardwareWalletDefaultHdPath({
   device,
   path,
@@ -2817,12 +2808,6 @@ export function setHardwareWalletDefaultHdPath({
 export function hideLoadingIndication(): Action {
   return {
     type: actionConstants.HIDE_LOADING,
-  };
-}
-
-export function hideNftLoadingIndication(): Action {
-  return {
-    type: actionConstants.HIDE_NFT_LOADING,
   };
 }
 
@@ -3473,17 +3458,14 @@ export function detectNfts(): ThunkAction<
   AnyAction
 > {
   return async (dispatch: MetaMaskReduxDispatch) => {
-    // dispatch(showLoadingIndication());
-    dispatch(showNftLoadingIndication());
+    dispatch(showLoadingIndication());
     log.debug(`background.detectNfts`);
     try {
       await submitRequestToBackground('detectNfts');
-      //  dispatch(hideLoadingIndication());
-      dispatch(hideNftLoadingIndication());
+      dispatch(hideLoadingIndication());
       await forceUpdateMetamaskState(dispatch);
     } finally {
-        //  dispatch(hideLoadingIndication());
-      dispatch(hideNftLoadingIndication());
+      dispatch(hideLoadingIndication());
     }
   };
 }

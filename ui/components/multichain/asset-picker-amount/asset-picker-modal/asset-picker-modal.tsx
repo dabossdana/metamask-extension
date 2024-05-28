@@ -55,7 +55,6 @@ import TokenCell from '../../../app/token-cell';
 import { TokenListItem } from '../../token-list-item';
 import { useNftsCollections } from '../../../../hooks/useNftsCollections';
 import ZENDESK_URLS from '../../../../helpers/constants/zendesk-url';
-import { AssetPickerModalNftTab } from './asset-picker-modal-nft-tab';
 
 type AssetPickerModalProps = {
   isOpen: boolean;
@@ -340,7 +339,7 @@ export function AssetPickerModal({
                 activeClassName="modal-tab__tab--active"
                 className="modal-tab__tab"
                 name={t('nfts')}
-                tabKey="modal-nfts"
+                tabKey="nfts"
               >
                 <Box paddingBottom={4} paddingTop={4} padding={4}>
                   <TextFieldSearch
@@ -366,11 +365,7 @@ export function AssetPickerModal({
                     size={TextFieldSearchSize.Lg}
                   />
                 </Box>
-                <AssetPickerModalNftTab
-                  collectionDataFiltered={collectionDataFiltered}
-                  previouslyOwnedCollection={previouslyOwnedCollection}
-                />
-                {/*                 {hasAnyNfts ? (
+                {hasAnyNfts ? (
                   <Box className="modal-tab__main-view">
                     <NftsItems
                       collections={collectionDataFiltered}
@@ -418,7 +413,7 @@ export function AssetPickerModal({
                       </ButtonLink>
                     </Box>
                   </Box>
-                )} */}
+                )}
               </Tab>
             }
           </Tabs>
