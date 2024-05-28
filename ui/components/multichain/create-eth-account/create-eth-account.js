@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { useI18nContext } from '../../../hooks/useI18nContext';
-import { addNewAccount, setAccountLabel } from '../../../store/actions';
+import {
+  addNewAccount,
+  setAccountLabel,
+  getNextAvailableAccountName as getNextAvailableAccountNameFromController,
+} from '../../../store/actions';
 import { CreateAccount } from '..';
 
 export const CreateEthAccount = ({ onActionComplete }) => {
-  const t = useI18nContext();
   const dispatch = useDispatch();
 
   const onCreateAccount = async (name) => {
@@ -17,9 +19,8 @@ export const CreateEthAccount = ({ onActionComplete }) => {
     onActionComplete(true);
   };
 
-  const getNextAvailableAccountName = async (accounts) => {
-    const newAccountNumber = Object.keys(accounts).length + 1;
-    return t('newAccountNumberName', [newAccountNumber]);
+  const getNextAvailableAccountName = async (_accounts) => {
+    return await getNextAvailableAccountNameFromController();
   };
 
   return (
