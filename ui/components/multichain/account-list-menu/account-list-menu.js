@@ -76,6 +76,26 @@ const ACTION_MODES = {
 };
 
 /**
+ * Gets the title for a given action mode.
+ *
+ * @param t - Function to translate text.
+ * @param actionMode - An action mode.
+ * @returns The title for this action mode.
+ */
+export const getActionTitle = (t, actionMode) => {
+  switch (actionMode) {
+    case ACTION_MODES.ADD:
+    case ACTION_MODES.ADD_BITCOIN:
+    case ACTION_MODES.MENU:
+      return t('addAccount');
+    case ACTION_MODES.IMPORT:
+      return t('importAccount');
+    default:
+      return t('selectAnAccount');
+  }
+}
+
+/**
  * Merges ordered accounts with balances with each corresponding account data from internal accounts
  *
  * @param accountsWithBalances - ordered accounts with balances
@@ -139,12 +159,7 @@ export const AccountListMenu = ({
   }
   searchResults = mergeAccounts(searchResults, accounts);
 
-  let title = t('selectAnAccount');
-  if (actionMode === ACTION_MODES.ADD || actionMode === ACTION_MODES.MENU) {
-    title = t('addAccount');
-  } else if (actionMode === ACTION_MODES.IMPORT) {
-    title = t('importAccount');
-  }
+  const title = getActionTitle(t, actionMode);
 
   let onBack = null;
   if (actionMode !== ACTION_MODES.LIST) {
