@@ -11,6 +11,7 @@ import { SNAP_MANAGE_ACCOUNTS_CONFIRMATION_TYPES } from '../../../../shared/cons
 import { t } from '../../translate';
 import MetamaskController from '../../metamask-controller';
 import { IconName } from '../../../../ui/components/component-library/icon';
+import { BITCOIN_MANAGER_SNAP_ID } from '../../../../shared/constants/bitcoin-manager-snap';
 import { isBlockedUrl } from './utils/isBlockedUrl';
 import { showSuccess, showError } from './utils/showResult';
 import { SnapKeyringBuilderMessenger } from './types';
@@ -29,6 +30,10 @@ export const getAccountsBySnapId = async (
   const snapKeyring: SnapKeyring = await controller.getSnapKeyring();
   return await snapKeyring.getAccountsBySnapId(snapId);
 };
+
+export function canSkipConfirmation(snapId: string): boolean {
+  return snapId === BITCOIN_MANAGER_SNAP_ID;
+}
 
 /**
  * Constructs a SnapKeyring builder with specified handlers for managing snap accounts.
@@ -120,6 +125,8 @@ export const snapKeyringBuilder = (
         address: string,
         snapId: string,
         handleUserInput: (accepted: boolean) => Promise<void>,
+        _accountNameSuggestion?: string,
+        displayConfirmation?: boolean,
       ) => {
         const snapName = getSnapName(snapId);
         const { id: addAccountApprovalId } = controllerMessenger.call(
@@ -140,6 +147,12 @@ export const snapKeyringBuilder = (
 
         const learnMoreLink =
           'https://support.metamask.io/hc/en-us/articles/360015289452-How-to-add-accounts-in-your-wallet';
+
+        // We honor the `displayConfirmation` flag only for specific Snaps
+        if (!displayConfirmation && canSkipConfirmation(snapId)) {
+          handleUserInput(true);
+          return;
+        }
 
         // Since we use this in the finally, better to give it a default value if the controller call fails
         let confirmationResult = false;
