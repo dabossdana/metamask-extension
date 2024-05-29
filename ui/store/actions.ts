@@ -1257,7 +1257,7 @@ export async function handleSnapRequest(args: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     params?: Record<string, any>;
   };
-}): Promise<void> {
+}): Promise<unknown> {
   return submitRequestToBackground('handleSnapRequest', [args]);
 }
 

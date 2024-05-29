@@ -22,6 +22,7 @@ import {
   CreateEthAccount,
   ImportAccount,
   AccountListItemMenuTypes,
+  CreateBtcAccount,
 } from '..';
 import {
   AlignItems,
@@ -68,6 +69,8 @@ const ACTION_MODES = {
   MENU: 'menu',
   // Displays the add account form controls
   ADD: 'add',
+  // Displays the add account form controls (for bitcoin account)
+  ADD_BITCOIN: 'add-bitcoin',
   // Displays the import account form controls
   IMPORT: 'import',
 };
@@ -180,6 +183,19 @@ export const AccountListMenu = ({
             />
           </Box>
         ) : null}
+        {actionMode === ACTION_MODES.ADD_BITCOIN ? (
+          <Box paddingLeft={4} paddingRight={4} paddingBottom={4}>
+            <CreateBtcAccount
+              onActionComplete={(confirmed) => {
+                if (confirmed) {
+                  onClose();
+                } else {
+                  setActionMode(ACTION_MODES.LIST);
+                }
+              }}
+            />
+          </Box>
+        ) : null}
         {actionMode === ACTION_MODES.IMPORT ? (
           <Box
             paddingLeft={4}
@@ -219,6 +235,26 @@ export const AccountListMenu = ({
                 data-testid="multichain-account-menu-popover-add-account"
               >
                 {t('addNewAccount')}
+              </ButtonLink>
+            </Box>
+            <Box marginTop={4}>
+              <ButtonLink
+                size={Size.SM}
+                startIconName={IconName.Add}
+                onClick={() => {
+                  trackEvent({
+                    category: MetaMetricsEventCategory.Navigation,
+                    event: MetaMetricsEventName.AccountAddSelected,
+                    properties: {
+                      account_type: MetaMetricsEventAccountType.Default,
+                      location: 'Main Menu',
+                    },
+                  });
+                  setActionMode(ACTION_MODES.ADD_BITCOIN);
+                }}
+                data-testid="multichain-account-menu-popover-add-account"
+              >
+                {t('addNewBitcoinAccount')}
               </ButtonLink>
             </Box>
             <Box marginTop={4}>
