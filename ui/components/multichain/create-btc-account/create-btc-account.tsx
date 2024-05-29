@@ -5,6 +5,10 @@ import { Json, JsonRpcRequest } from '@metamask/utils';
 import { handleSnapRequest } from '../../../store/actions';
 import { CreateAccount } from '..';
 import { useI18nContext } from '../../../hooks/useI18nContext';
+import {
+  BITCOIN_MANAGER_SCOPE_MAINNET,
+  BITCOIN_MANAGER_SNAP_ID,
+} from '../../../../shared/constants/bitcoin-manager-snap';
 
 type CreateBtcAccountOptions = {
   /**
@@ -13,17 +17,14 @@ type CreateBtcAccountOptions = {
   onActionComplete: (completed: boolean) => Promise<void>;
 };
 
-// TODO: Move this in a separate file
-const origin = 'metamask';
-const snapId = 'local:http://localhost:8080';
-// const origin = 'https://metamask.github.io';
-// const snapId = 'npm:@metamask/snap-simple-keyring-snap';
-
 class BitcoinSnapSender implements Sender {
   send = async (request: JsonRpcRequest): Promise<Json> => {
     return (await handleSnapRequest({
-      snapId,
-      origin,
+      origin: 'metamask',
+      snapId: BITCOIN_MANAGER_SNAP_ID,
+      // TODO: Remove this after integration is done
+      // origin: 'https://metamask.github.io',
+      // snapId: 'npm:@metamask/snap-simple-keyring-snap',
       handler: HandlerType.OnKeyringRequest,
       request,
     })) as Json;
@@ -45,7 +46,7 @@ export const CreateBtcAccount = ({
     const client = new KeyringClient(new BitcoinSnapSender());
     await client.createAccount({
       // TODO: Add constants for this
-      scope: 'bip122:000000000019d6689c085ae165831e93',
+      scope: BITCOIN_MANAGER_SCOPE_MAINNET,
     });
 
     // TODO: Add logic to rename account
