@@ -530,6 +530,9 @@
   "attributions": {
     "message": "参与者"
   },
+  "auroraRpcDeprecationMessage": {
+    "message": "Infura RPC（远程过程调用）URL 不再支持 Aurora。"
+  },
   "authorizedPermissions": {
     "message": "您已授权以下权限"
   },
@@ -593,9 +596,6 @@
   },
   "basicConfigurationBannerTitle": {
     "message": "基本功能已关闭"
-  },
-  "basicConfigurationDescription": {
-    "message": "包括代币数据和值、最优燃料设置等。使用这些服务会与 MetaMask 共享您的 IP 地址，就像您访问网站一样。"
   },
   "basicConfigurationLabel": {
     "message": "基本功能"
