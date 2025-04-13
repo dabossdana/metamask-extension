@@ -350,7 +350,7 @@
     "@sentry/integrations": "^7.53.0",
     "@sentry/types": "^7.53.0",
     "@sentry/utils": "^7.53.0",
-    "@trezor/connect-web": "patch:@trezor/connect-web@npm%3A9.2.2#~/.yarn/patches/@trezor-connect-web-npm-9.2.2-a4de8e45fc.patch",
+    "@trezor/connect-web": "9.5.4",
     "@zxing/browser": "^0.1.4",
     "@zxing/library": "0.20.0",
     "await-semaphore": "^0.1.1",
