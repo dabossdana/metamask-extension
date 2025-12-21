@@ -367,7 +367,7 @@
     "debounce-stream": "^2.0.0",
     "deep-freeze-strict": "1.1.1",
     "eth-ens-namehash": "^2.0.8",
-    "eth-lattice-keyring": "^0.12.4",
+    "eth-lattice-keyring": "^1.1.0",
     "eth-method-registry": "^4.0.0",
     "eth-rpc-errors": "^4.0.2",
     "ethereum-ens-network-map": "^1.0.2",
